@@ -14,6 +14,20 @@ import java.time.Duration;
 
 public class Hooks {
 
+    //API
+    @Before("api")
+    public void setUpApi(){
+
+        RestAssured.baseURI=ConfigurationReader.getProperty("library.baseUri");
+    }
+    @After("api")
+    public void resetApi(){
+
+        RestAssured.reset();
+    }
+
+
+    //UI
     @Before("@ui")
     public void setUp(){
         Driver.getDriver().manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
@@ -21,7 +35,6 @@ public class Hooks {
         Driver.getDriver().get(ConfigurationReader.getProperty("library_url"));
 
     }
-
     /*
     @Before("@ui")
     public void setUpAPI(){
@@ -29,7 +42,6 @@ public class Hooks {
 
     }
      */
-
     @After("@ui")
     public void tearDown(Scenario scenario){
         if(scenario.isFailed()){
@@ -42,13 +54,12 @@ public class Hooks {
     }
 
 
-
+    //DB
     @Before("@db")
     public void setUpDB(){
         System.out.println("Connecting to database...");
         DB_Util.createConnection();
     }
-
     @After("@db")
     public void tearDownDB(){
         System.out.println("close database connection...");

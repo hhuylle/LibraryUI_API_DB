@@ -15,14 +15,12 @@ import java.time.Duration;
 public class Hooks {
 
     //API
-    @Before("api")
+    @Before("@api")
     public void setUpApi(){
-
         RestAssured.baseURI=ConfigurationReader.getProperty("library.baseUri");
     }
-    @After("api")
+    @After("@api")
     public void resetApi(){
-
         RestAssured.reset();
     }
 
@@ -33,7 +31,6 @@ public class Hooks {
         Driver.getDriver().manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         Driver.getDriver().manage().window().maximize();
         Driver.getDriver().get(ConfigurationReader.getProperty("library_url"));
-
     }
     /*
     @Before("@ui")

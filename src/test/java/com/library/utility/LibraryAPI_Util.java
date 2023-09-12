@@ -10,6 +10,15 @@ import java.util.Map;
 import static io.restassured.RestAssured.given;
 
 public class LibraryAPI_Util {
+    /*
+    private static String token;
+
+    public static String getToken(){
+
+        return token;
+    }
+
+     */
 
     /**
      * Return TOKEN as String by using provided username from /token endpoint
@@ -20,7 +29,11 @@ public class LibraryAPI_Util {
 
         String email=ConfigurationReader.getProperty(userType+"_username");
         String password="libraryUser";
+        /*
+        token = getToken(email,password);
+        return token;
 
+         */
         return getToken(email,password);
 
     }

@@ -32,13 +32,6 @@ public class Hooks {
         Driver.getDriver().manage().window().maximize();
         Driver.getDriver().get(ConfigurationReader.getProperty("library_url"));
     }
-    /*
-    @Before("@ui")
-    public void setUpAPI(){
-        RestAssured.baseURI=ConfigurationReader.getProperty("library.baseUri");
-
-    }
-     */
     @After("@ui")
     public void tearDown(Scenario scenario){
         if(scenario.isFailed()){

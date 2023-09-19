@@ -47,7 +47,20 @@ public class BookPage extends BasePage{
     @FindBy(id = "description")
     public WebElement description;
 
+    public WebElement editBookById(String bookId){
+        String xpath = "//tr[@role='row']//a[@onclick='Books.edit_book("+bookId+")']";
+        return Driver.getDriver().findElement(By.xpath(xpath));
+    }
 
+    public WebElement createdUserName(String userName){
+        String xpath = "//span[.='"+userName+"']";
+        return Driver.getDriver().findElement(By.xpath(xpath));
+    }
+
+    public WebElement editBookByIsbn(String isbn){
+        String path = "//td[3][.='"+isbn+"']/../td/a";
+        return Driver.getDriver().findElement(By.xpath(path));
+    }
 
     public WebElement editBook(String book) {
         String xpath = "//td[3][.='" + book + "']/../td/a";

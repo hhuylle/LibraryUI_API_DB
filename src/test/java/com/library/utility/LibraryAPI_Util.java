@@ -1,16 +1,19 @@
 package com.library.utility;
 
 import com.github.javafaker.Faker;
+import io.cucumber.java.AfterAll;
+import io.cucumber.java.BeforeAll;
 import io.restassured.http.ContentType;
 import io.restassured.specification.RequestSpecification;
+import io.restassured.specification.ResponseSpecification;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import static io.restassured.RestAssured.given;
+import static io.restassured.RestAssured.*;
 
 public class LibraryAPI_Util {
-    /*
+
     private static String token;
 
     public static String getToken(){
@@ -18,7 +21,6 @@ public class LibraryAPI_Util {
         return token;
     }
 
-     */
 
     /**
      * Return TOKEN as String by using provided username from /token endpoint
@@ -29,12 +31,12 @@ public class LibraryAPI_Util {
 
         String email=ConfigurationReader.getProperty(userType+"_username");
         String password="libraryUser";
-        /*
+
         token = getToken(email,password);
         return token;
 
-         */
-        return getToken(email,password);
+
+        //return getToken(email,password);
 
     }
 
@@ -50,6 +52,8 @@ public class LibraryAPI_Util {
                 .path("token") ;
 
     }
+
+
 
     public static Map<String,Object> getRandomBookMap(){
 

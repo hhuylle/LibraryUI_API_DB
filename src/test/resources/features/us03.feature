@@ -1,8 +1,8 @@
-
+@us03
 Feature: As a librarian, I want to create a new book
 
 
-
+  @api
   Scenario: Create a new book API
     Given I logged Library api as a "librarian"
     And Accept header is "application/json"
@@ -15,7 +15,7 @@ Feature: As a librarian, I want to create a new book
     And "book_id" field should not be null
 
 
-
+  @api @db @ui
   Scenario: Create a new book all layers
     Given I logged Library api as a "librarian"
     And Accept header is "application/json"

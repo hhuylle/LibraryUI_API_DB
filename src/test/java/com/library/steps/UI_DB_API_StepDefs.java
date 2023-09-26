@@ -7,23 +7,10 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.restassured.RestAssured;
-import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import io.restassured.response.ValidatableResponse;
 import io.restassured.specification.RequestSpecification;
-import org.hamcrest.Condition;
-import org.hamcrest.Matchers;
-import org.junit.Assert;
-import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedCondition;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.Select;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.sql.ResultSet;
-import java.time.Duration;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -38,7 +25,7 @@ public class UI_DB_API_StepDefs {
      * User story 01
      */
     String token;
-    RequestSpecification requestSpecification;
+    RequestSpecification reqSpecification;
     Response response;
     ValidatableResponse validatableResponse;
 
@@ -49,13 +36,13 @@ public class UI_DB_API_StepDefs {
     }
     @Given("Accept header is {string}")
     public void accept_header_is(String acceptHeader) {
-        requestSpecification = RestAssured.given().log().all()
+        reqSpecification = RestAssured.given().log().all()
                 .header("x-library-token",token)
                 .accept(acceptHeader);
     }
     @When("I send GET request to {string} endpoint")
     public void i_send_get_request_to_endpoint(String endPoint) {
-        response = requestSpecification.when()
+        response = reqSpecification.when()
                 .get(endPoint).prettyPeek();
 
         validatableResponse = response.then();
@@ -79,7 +66,7 @@ public class UI_DB_API_StepDefs {
     String id;
     @Given("Path param is {string}")
     public void path_param_is(String idPathParam){
-        requestSpecification.pathParam("id",Integer.parseInt(idPathParam));
+        reqSpecification.pathParam("id",Integer.parseInt(idPathParam));
         id = idPathParam;
     }
     @Then("{string} field should be same with path param")
@@ -101,7 +88,7 @@ public class UI_DB_API_StepDefs {
     //Map<String,Object> randomUserBodyMap;
     @Given("Request Content Type header is {string}")
     public void request_content_type_header_is(String contentType) {
-        requestSpecification.contentType(contentType);
+        reqSpecification.contentType(contentType);
     }
     @Given("I create a random {string} as request body")
     public void i_create_a_random_as_request_body(String randomBookBody) {
@@ -118,13 +105,13 @@ public class UI_DB_API_StepDefs {
                 throw new IllegalArgumentException("Please check body data");
         }
 
-        requestSpecification.formParams(requestBookBodyMap);
+        reqSpecification.formParams(requestBookBodyMap);
         randomBodyMap = requestBookBodyMap;
         //randomUserBodyMap = requestUserBodyMap;
     }
     @When("I send POST request to {string} endpoint")
     public void i_send_post_request_to_endpoint(String endPoint) {
-        response = requestSpecification.when().post(endPoint).prettyPeek();
+        response = reqSpecification.when().post(endPoint).prettyPeek();
         validatableResponse = response.then();
     }
     @Then("the field value for {string} path should be equal to {string}")
@@ -230,7 +217,7 @@ public class UI_DB_API_StepDefs {
     }
     @Given("I send token information as request body")
     public void i_send_token_information_as_request_body() {
-        requestSpecification.formParams("token",token);
+        reqSpecification.formParams("token",token);
     }
 
 
